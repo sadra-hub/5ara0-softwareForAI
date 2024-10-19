@@ -87,7 +87,8 @@ def evaluate_model(model):
     """
 
     test_images, test_labels, _, _ = load_data_set(TEST_IMAGE_DIR)
-
+    score = model.evaluate(test_images, test_labels)
+    return score[0]  # Return the loss value
 
 def identify(raw_image, model):
     """
