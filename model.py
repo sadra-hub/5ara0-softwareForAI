@@ -35,16 +35,16 @@ def train_model(model, n_validation, write_to_file=False):
 
     Arguments
     ---------
-    model : model class
+    model : keras Model
         Model structure to fit, as defined by build_model().
     n_validation : int
         Number of training examples used for cross-validation.
     write_to_file : bool
         Write model to file; can later be loaded through load_model().
-
+    
     Returns
     -------
-    model : model class
+    model : keras Model
         The trained model.
     """
 
