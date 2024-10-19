@@ -98,7 +98,7 @@ def identify(raw_image, model):
     ---------
     raw_image : Image
         Raw image to classify.
-    model : model class
+    model : keras Model
         Trained model.
 
     Returns
