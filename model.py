@@ -65,11 +65,10 @@ def load_model():
 
     Returns
     -------
-    model : model class
+    model : keras Model
         Previously trained model.
     """
-
-    pass
+    return keras.models.load_model('card_model.h5')
 
 
 def evaluate_model(model):
