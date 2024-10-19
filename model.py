@@ -108,3 +108,11 @@ def identify(raw_image, model):
     """
 
     image = normalize_image(raw_image)
+    image = np.expand_dims(image, axis=0)  # Add batch dimension
+
+    prediction = model.predict(image)
+    rank_index = np.argmax(prediction)
+
+    # Assuming 0: J, 1: Q, 2: K
+    ranks = ['J', 'Q', 'K']
+    return ranks[rank_index]
