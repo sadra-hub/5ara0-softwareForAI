@@ -11,11 +11,22 @@ def build_model():
 
     Returns
     -------
-    model : model class from any toolbox you choose to use.
+    model : keras Model
         Model definition (untrained).
     """
-
-    pass
+    model = keras.Sequential([
+        layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 1)),  # Assuming grayscale images
+        layers.MaxPooling2D(pool_size=(2, 2)),
+        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.MaxPooling2D(pool_size=(2, 2)),
+        layers.Flatten(),
+        layers.Dense(64, activation='relu'),
+        layers.Dense(3, activation='softmax')  # Assuming 3 classes: J, Q, K
+    ])
+    
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    
+    return model
 
 
 def train_model(model, n_validation, write_to_file=False):
