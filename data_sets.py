@@ -82,6 +82,9 @@ def generate_data_set(n_samples, data_dir, noise_level) :
         Number of train/test examples to generate
     data_dir : str in [TRAINING_IMAGE_DIR, TEST_IMAGE_DIR]
         Directory for storing images
+    noise_level : float
+        Probability with which a given pixel is randomized.
+    
     """
     #save the images in the data_dir
 
