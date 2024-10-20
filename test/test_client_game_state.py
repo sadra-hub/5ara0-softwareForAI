@@ -15,14 +15,11 @@ class TestClientGameState:
         client_game_state.update_bank(-50)
         assert client_game_state.get_player_bank() == 70
 
-    def test_start_new_round(self, client_game_state):
+    def test_start_new__empty_round(self, client_game_state):
         client_game_state.start_new_round()
-        assert len(client_game_state.get_rounds()) == 1
+        # Rounds with no move should be filtered out
+        assert len(client_game_state.get_rounds()) == 0
         assert client_game_state.get_last_round_state().get_round_id() == 1
-
-        client_game_state.start_new_round()
-        assert len(client_game_state.get_rounds()) == 2
-        assert client_game_state.get_last_round_state().get_round_id() == 2
 
     def test_get_rounds_with_moves(self, client_game_state):
         # Add a round without moves
