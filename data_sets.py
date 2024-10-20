@@ -86,6 +86,9 @@ def generate_data_set(n_samples, data_dir, noise_level) :
         Probability with which a given pixel is randomized.
     
     """
+    #ABDULLAHI CHECK IF THIS METHOD IS GOOD TO, i have added noise level an save the images in one file. 
+    #I am not sure if the train/test data should be her or in the load_data_set method
+
     #save the images in the data_dir
 
     if not os.path.exists(data_dir):
