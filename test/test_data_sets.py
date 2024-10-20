@@ -21,7 +21,7 @@ class TestDataSets:
     
         #test if the image is generated has the correct shape
         rank = random.choice(LABELS)
-        img = generate_noisy_image(rank, 0.7)
+        img = generate_noisy_image(rank, 0.6)
 
         assert(img.size) == (IMAGE_SIZE, IMAGE_SIZE)
 
