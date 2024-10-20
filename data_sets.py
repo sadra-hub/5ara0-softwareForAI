@@ -72,7 +72,7 @@ def load_data_set(data_dir, n_validation = 0):
     return training_images, training_labels, validation_images, validation_labels
 
 
-def generate_data_set(n_samples, data_dir):
+def generate_data_set(n_samples, data_dir, noise_level) :
     """
     Generate n_samples noisy images by using generate_noisy_image(), and store them in data_dir.
 
@@ -83,6 +83,8 @@ def generate_data_set(n_samples, data_dir):
     data_dir : str in [TRAINING_IMAGE_DIR, TEST_IMAGE_DIR]
         Directory for storing images
     """
+    #save the images in the data_dir
+
 
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)  # Generate a directory for data set storage, if not already present
@@ -90,7 +92,7 @@ def generate_data_set(n_samples, data_dir):
     for i in range(n_samples):
         # Pick a random rank and convert it to a noisy image through generate_noisy_image().
         rank = None
-        img = None
+        img = generate_noisy_image(rank, noise_level)
 
         img.save(f"./{data_dir}/{rank}_{i}.png")  # The filename encodes the original label for training/testing
 
