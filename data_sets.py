@@ -85,16 +85,16 @@ def generate_data_set(n_samples, data_dir, noise_level) :
     """
     #save the images in the data_dir
 
-
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)  # Generate a directory for data set storage, if not already present
 
+
     for i in range(n_samples):
         # Pick a random rank and convert it to a noisy image through generate_noisy_image().
-        rank = None
+        rank = random.choice(LABELS)
         img = generate_noisy_image(rank, noise_level)
 
-        img.save(f"./{data_dir}/{rank}_{i}.png")  # The filename encodes the original label for training/testing
+        img.save(f"{data_dir}/{rank}_{i}_{noise_level:.2f}.png")  # The filename encodes the original label for training/testing
 
 
 def generate_noisy_image(rank, noise_level):

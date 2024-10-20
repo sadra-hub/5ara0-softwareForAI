@@ -1,7 +1,9 @@
 from data_sets import *
 import numpy as np
 import pytest
-
+import random
+from PIL import Image, ImageDraw, ImageFont
+import os
 
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))  # Mark the test root directory
 TRAINING_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "training_images")
@@ -21,7 +23,7 @@ class TestDataSets:
         rank = random.choice(LABELS)
         img = generate_noisy_image(rank, 0.7)
 
-        assert img.shape == (IMAGE_SIZE, IMAGE_SIZE)
+        assert(img.size) == (IMAGE_SIZE, IMAGE_SIZE)
 
         #test for rank must be in LABELS for upper/lower case
         assert pytest.raises(ValueError, generate_noisy_image, "ab", 0.5)
