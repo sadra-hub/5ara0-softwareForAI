@@ -72,7 +72,7 @@ def load_data_set(data_dir, n_validation = 0):
     return training_images, training_labels, validation_images, validation_labels
 
 
-def generate_data_set(n_samples, data_dir, noise_level) :
+def generate_data_set(n_samples, data_dir, noise_level, train_ratio = 0.8):
     """
     Generate n_samples noisy images by using generate_noisy_image(), and store them in data_dir.
 
@@ -84,11 +84,9 @@ def generate_data_set(n_samples, data_dir, noise_level) :
         Directory for storing images
     noise_level : float
         Probability with which a given pixel is randomized.
-    
+    train_ratio: float
+        Ratio of training samples to total samples
     """
-    #ABDULLAHI CHECK IF THIS METHOD IS GOOD TO, i have added noise level an save the images in one file. 
-    #I am not sure if the train/test data should be her or in the load_data_set method
-
     #save the images in the test and train dir
 
     train_image_dir = f"./{data_dir}/training_images"
@@ -103,14 +101,23 @@ def generate_data_set(n_samples, data_dir, noise_level) :
     if not os.path.exists(test_image_dir):
         os.makedirs(test_image_dir) #Generate a directory for test set storage, if not already present
 
-    for i in range(n_samples):
-        # Pick a random rank and convert it to a noisy image through generate_noisy_image().
+    # Determine the split ratio for training and testing
+    n_train_samples = int(n_samples * train_ratio)
+    n_test_samples = n_samples - n_train_samples
+
+    for i in range(n_train_samples):
+        #pick a random rank and convert it to a noisy image through generate_noisy_image()
         rank = random.choice(LABELS)
         img = generate_noisy_image(rank, noise_level)
+        #save the images in the train dir
+        img.save(f"{train_image_dir}/{rank}_{i}_{noise_level:.2f}.png")
 
-        img.save(f"{data_dir}/{rank}_{i}_{noise_level:.2f}.png")  # The filename encodes the original label for training/testing
-
-        #create logic to save the images in the test and train dir based on the method above
+    for i in range(n_test_samples):
+        #pick a random rank and convert it to a noisy image through generate_noisy_image()
+        rank = random.choice(LABELS)
+        img = generate_noisy_image(rank, noise_level)
+        #save the images in the test dir
+        img.save(f"{test_image_dir}/{rank}_{i}_{noise_level:.2f}.png")
         
 
 
