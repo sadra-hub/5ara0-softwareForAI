@@ -110,8 +110,7 @@ def generate_data_set(n_samples, data_dir, noise_level) :
 
         img.save(f"{data_dir}/{rank}_{i}_{noise_level:.2f}.png")  # The filename encodes the original label for training/testing
 
-
-
+        #create logic to save the images in the test and train dir based on the method above
         
 
 
