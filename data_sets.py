@@ -89,11 +89,19 @@ def generate_data_set(n_samples, data_dir, noise_level) :
     #ABDULLAHI CHECK IF THIS METHOD IS GOOD TO, i have added noise level an save the images in one file. 
     #I am not sure if the train/test data should be her or in the load_data_set method
 
-    #save the images in the data_dir
+    #save the images in the test and train dir
+
+    train_image_dir = f"./{data_dir}/training_images"
+    test_image_dir = f"./{data_dir}/test_images"
 
     if not os.path.exists(data_dir):
-        os.makedirs(data_dir)  # Generate a directory for data set storage, if not already present
+        os.makedirs(data_dir)  #Generate a directory for data set storage, if not already present
 
+    if not os.path.exists(train_image_dir):
+        os.makedirs(train_image_dir) #Generate a directory for training set storage, if not already present
+    
+    if not os.path.exists(test_image_dir):
+        os.makedirs(test_image_dir) #Generate a directory for test set storage, if not already present
 
     for i in range(n_samples):
         # Pick a random rank and convert it to a noisy image through generate_noisy_image().
@@ -101,6 +109,10 @@ def generate_data_set(n_samples, data_dir, noise_level) :
         img = generate_noisy_image(rank, noise_level)
 
         img.save(f"{data_dir}/{rank}_{i}_{noise_level:.2f}.png")  # The filename encodes the original label for training/testing
+
+
+
+        
 
 
 def generate_noisy_image(rank, noise_level):
