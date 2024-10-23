@@ -13,6 +13,7 @@ DICT_LABELS = {'J': 0, 'Q': 1, 'K': 2}
 NUM_CLASSES = len(DICT_LABELS)
 IMAGE_SIZE = 32 
 ROTATE_MAX_ANGLE = 15
+NOISE = np.arange(0,1,0.1)  # Noise levels to generate images with for dataset
 
 FONTS = [
     font_manager.findfont(font_manager.FontProperties(family = 'sans-serif', style = 'normal', weight = 'normal')),
@@ -109,7 +110,7 @@ def load_data_set(data_dir, n_validation = 0):
     return training_images, training_labels, validation_images, validation_labels
 
 
-def generate_data_set(n_samples, data_dir, noise_level, train_ratio = 0.8):
+def generate_data_set(n_samples, data_dir):
     """
     Generate n_samples noisy images by using generate_noisy_image(), and store them in data_dir.
 
@@ -119,42 +120,18 @@ def generate_data_set(n_samples, data_dir, noise_level, train_ratio = 0.8):
         Number of train/test examples to generate
     data_dir : str in [TRAINING_IMAGE_DIR, TEST_IMAGE_DIR]
         Directory for storing images
-    noise_level : float
-        Probability with which a given pixel is randomized.
-    train_ratio: float
-        Ratio of training samples to total samples
     """
-    #save the images in the test and train dir
-
-    train_image_dir = f"./{data_dir}/training_images"
-    test_image_dir = f"./{data_dir}/test_images"
 
     if not os.path.exists(data_dir):
-        os.makedirs(data_dir)  #Generate a directory for data set storage, if not already present
+        os.makedirs(data_dir)  # Generate a directory for data set storage, if not already present
 
-    if not os.path.exists(train_image_dir):
-        os.makedirs(train_image_dir) #Generate a directory for training set storage, if not already present
-    
-    if not os.path.exists(test_image_dir):
-        os.makedirs(test_image_dir) #Generate a directory for test set storage, if not already present
 
-    # Determine the split ratio for training and testing
-    n_train_samples = int(n_samples * train_ratio)
-    n_test_samples = n_samples - n_train_samples
-
-    for i in range(n_train_samples):
-        #pick a random rank and convert it to a noisy image through generate_noisy_image()
-        rank = random.choice(LABELS)
-        img = generate_noisy_image(rank, noise_level)
-        #save the images in the train dir
-        img.save(f"{train_image_dir}/{rank}_{i}_{noise_level:.2f}.png")
-
-    for i in range(n_test_samples):
-        #pick a random rank and convert it to a noisy image through generate_noisy_image()
-        rank = random.choice(LABELS)
-        img = generate_noisy_image(rank, noise_level)
-        #save the images in the test dir
-        img.save(f"{test_image_dir}/{rank}_{i}_{noise_level:.2f}.png")
+    for i in range(n_samples):
+        # pick a random rank and convert it to a noisy image through generate_noisy_image()
+        rank = random.choice(LABELS) # randomly select J,Q,K
+        noise_level  = random.choice(NOISE) # randomly select a noise level
+        img = generate_noisy_image(rank, noise_level) # Assign a random noise level, noise level is a float between 0 and 1
+        img.save(f"{data_dir}/{rank}_{i}_{noise_level:.2f}.png") # Save the image with the filename encoded for testing and training
         
 
 
