@@ -1,6 +1,8 @@
+import os
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
+from keras.models import load_model as keras_load_model # type: ignore
 from data_sets import normalize_image, load_data_set, TRAINING_IMAGE_DIR, TEST_IMAGE_DIR
 
 layers = tf.keras.layers
@@ -67,9 +69,18 @@ def load_model():
     -------
     model : keras Model
         Previously trained model.
-    """
-    return keras.models.load_model('card_model.h5')
 
+    Raises
+    ------
+    FileNotFoundError
+        If the model file does not exist.
+    """
+    model_file = 'card_model.h5'
+    
+    if not os.path.exists(model_file):
+        raise FileNotFoundError(f"Model file '{model_file}' does not exist.")
+    
+    return keras_load_model(model_file)
 
 def evaluate_model(model):
     """
