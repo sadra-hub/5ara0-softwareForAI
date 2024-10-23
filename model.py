@@ -30,7 +30,6 @@ def build_model():
     
     return model
 
-
 def train_model(model, n_validation, write_to_file=False):
     """
     Fit the model on the training data set.
@@ -59,7 +58,6 @@ def train_model(model, n_validation, write_to_file=False):
         model.save('card_model.h5')  # Save the model to a file
 
     return model
-
 
 def load_model():
     """
