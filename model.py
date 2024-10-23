@@ -1,6 +1,8 @@
+import os
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
+from keras.models import load_model as keras_load_model # type: ignore
 from data_sets import normalize_image, load_data_set, TRAINING_IMAGE_DIR, TEST_IMAGE_DIR
 
 layers = tf.keras.layers
@@ -27,7 +29,6 @@ def build_model():
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
     
     return model
-
 
 def train_model(model, n_validation, write_to_file=False):
     """
@@ -58,7 +59,6 @@ def train_model(model, n_validation, write_to_file=False):
 
     return model
 
-
 def load_model():
     """
     Load a model from file.
@@ -68,8 +68,14 @@ def load_model():
     model : keras Model
         Previously trained model.
     """
-    return keras.models.load_model('card_model.h5')
+    model_path = "card_model.h5"
 
+    # Check if the file exists, raise a FileNotFoundError if it doesn't
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model file '{model_path}' does not exist.")
+
+    # Load the model
+    return keras.models.load_model(model_path)
 
 def evaluate_model(model):
     """
