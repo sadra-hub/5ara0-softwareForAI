@@ -2,7 +2,7 @@ import os
 import numpy as np
 from tensorflow import keras
 from data_sets import IMAGE_SIZE, TEST_IMAGE_DIR
-from model import build_model, load_model, evaluate_model
+from model import build_model, load_model, evaluate_model, identify
 
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))  # Mark the test root directory
 TRAINING_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "training_images")
@@ -69,3 +69,28 @@ class TestModel:
         mock_model.evaluate.assert_called_once_with(mock_test_images, mock_test_labels)
 
 
+    def test_identify(self, mock_model, mocker):
+        """Test the identify function."""
+        # Mocking the raw image input
+        raw_image = np.random.rand(*RAW_IMAGE_SHAPE)
+
+        # Mocking the normalization process
+        normalized_image = np.random.rand(*RAW_IMAGE_SHAPE)  # Normalized image
+        mocker.patch('model.normalize_image', return_value=normalized_image)
+
+        # Mocking the prediction process
+        mock_model.predict.return_value = np.array([[0.1, 0.8, 0.1]])  # Mock predictions (Q)
+
+        # Call the function under test
+        rank = identify(raw_image, mock_model)
+
+        # Assertions
+        assert rank == 'Q'  # Based on the mock prediction
+        
+        # Use np.array_equal for array comparison
+        expected_input = np.expand_dims(normalized_image, axis=0)
+        mock_model.predict.assert_called_once()
+        
+        # Check if the actual call arguments match the expected input
+        actual_call_args = mock_model.predict.call_args[0][0]  # Extract the first argument from the call
+        assert np.array_equal(actual_call_args, expected_input), "The model was not called with the expected input."
