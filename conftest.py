@@ -23,4 +23,9 @@ def mock_model(mocker):
     model_1 = mocker.Mock()
     return model_1
 
+@pytest.fixture
+def mock_load_data_set(mocker):
+    """Fixture to mock load_data_set."""
+    return mocker.patch('model.load_data_set')
+
 # Define your own fixtures for testing here if you need them
