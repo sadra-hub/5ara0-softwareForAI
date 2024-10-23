@@ -67,18 +67,15 @@ def load_model():
     -------
     model : keras Model
         Previously trained model.
-
-    Raises
-    ------
-    FileNotFoundError
-        If the model file does not exist.
     """
-    model_file = 'card_model.h5'
-    
-    if not os.path.exists(model_file):
-        raise FileNotFoundError(f"Model file '{model_file}' does not exist.")
-    
-    return keras_load_model(model_file)
+    model_path = "card_model.h5"
+
+    # Check if the file exists, raise a FileNotFoundError if it doesn't
+    if not os.path.exists(model_path):
+        raise FileNotFoundError(f"Model file '{model_path}' does not exist.")
+
+    # Load the model
+    return keras.models.load_model(model_path)
 
 def evaluate_model(model):
     """
