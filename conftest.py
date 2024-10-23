@@ -8,11 +8,9 @@ TEST_DIR = os.path.join(os.path.abspath(__file__), "test")  # Mark the test root
 TRAINING_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "training_images")
 TEST_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "test_images")
 
-
 # Pytest loader requires a conftest with (empty) initialization
 def __init__():
     pass
-
 
 @pytest.fixture()
 def image(request):
