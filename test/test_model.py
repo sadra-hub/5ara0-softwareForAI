@@ -1,11 +1,13 @@
 import os
-import tensorflow as tf
+import numpy as np
 from tensorflow import keras
-from model import build_model, load_model
+from data_sets import IMAGE_SIZE, TEST_IMAGE_DIR
+from model import build_model, load_model, evaluate_model
 
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))  # Mark the test root directory
 TRAINING_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "training_images")
 TEST_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "test_images")
+RAW_IMAGE_SHAPE = (IMAGE_SIZE, IMAGE_SIZE, 3)
 
 class TestModel:
 
@@ -45,3 +47,25 @@ class TestModel:
         assert len(model.layers) == 7
         assert isinstance(model.layers[0], keras.layers.Conv2D)
         assert isinstance(model.layers[-1], keras.layers.Dense)
+
+    def test_evaluate_model(self, mock_load_data_set, mock_model):
+        """Test the evaluate_model function."""
+        # Mocking the data set returned by load_data_set
+        mock_test_images = np.random.rand(10, *RAW_IMAGE_SHAPE)  # 10 test images
+        mock_test_labels = np.random.randint(0, 3, size=(10, 3))  # 10 test labels (one-hot encoded)
+
+        # Set the return value for the mocked load_data_set function
+        mock_load_data_set.return_value = (mock_test_images, mock_test_labels, None, None)
+
+        # Mocking the evaluate method
+        mock_model.evaluate.return_value = [0.25]  # Mocking the loss value returned by evaluate
+
+        # Call the function under test
+        score = evaluate_model(mock_model)
+
+        # Assertions
+        assert score == 0.25
+        mock_load_data_set.assert_called_once_with(TEST_IMAGE_DIR)
+        mock_model.evaluate.assert_called_once_with(mock_test_images, mock_test_labels)
+
+
