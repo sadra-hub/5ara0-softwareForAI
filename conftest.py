@@ -17,5 +17,10 @@ def __init__():
 def image(request):
     return Image.open(os.path.join(TEST_IMAGE_TEST_DIR, "J_1.png"))
 
+@pytest.fixture
+def mock_model(mocker):
+    """Fixture to create a mock model."""
+    model_1 = mocker.Mock()
+    return model_1
 
 # Define your own fixtures for testing here if you need them
