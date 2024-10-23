@@ -48,4 +48,40 @@ class TestDataSets:
         assert pytest.raises(ValueError, generate_noisy_image, rank , -0.1) 
         assert pytest.raises(ValueError, generate_noisy_image, rank , 1.1)
 
+    def test_load_data_set(self):
+        """
+        Test if the images are loaded and divided into training and validation sets.
+        """
+
+        n_validation = 1
+
+        training_images, training_labels, validation_images, validation_labels = load_data_set(TEST_IMAGE_TEST_DIR, n_validation)
+
+        # Extract png files
+        files = os.listdir(TEST_IMAGE_TEST_DIR)
+        png_files = []
+        for file in files:
+            if file.split('.')[-1] == "png":
+                png_files.append(file)
+
+        total_images = len(png_files)
+
+        # Check if the total number of images is split correctly into training and validation sets
+        assert len(training_images) + len(validation_images) == total_images, "Total images should match the split between training and validation."
+
+        # Check if the number of validation images matches n_validation
+        assert len(validation_images) == n_validation, f"Validation set should have {n_validation} images."
+
+        # Check if the number of training images is correct
+        assert len(training_images) == total_images - n_validation, f"Training set should have {total_images - n_validation} images."
+
+        # Test if labels are correctly generated (since we have 3 classes: ['J', 'Q', 'K'])
+        assert training_labels.shape[1] == 3
+        assert validation_labels.shape[1] == 3
+
+        # Test if the label matrix contains only 0 and 1 for one-hot encoding
+        assert training_labels.min() == 0
+        assert training_labels.max() == 1
+        assert validation_labels.min() == 0
+        assert validation_labels.max() == 1
 
