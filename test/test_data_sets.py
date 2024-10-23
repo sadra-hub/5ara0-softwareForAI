@@ -55,7 +55,7 @@ class TestDataSets:
         # Check for the case when n_validation = 0
         training_images, training_labels, validation_images, validation_labels = load_data_set(TRAINING_IMAGE_TEST_DIR) # use training data in test directory to split into training/validation sets
         # Check validation set information when n_validation = 0
-        assert validation_labels == None and validation_features == None
+        assert validation_labels == None and validation_images == None
         # Check training set information when n_validation = 0
         number_of_training_labels = len(training_labels)
         number_of_training_images = len(training_images)
@@ -76,8 +76,4 @@ class TestDataSets:
 
         # Check if the number of training images is correct
         assert len(training_images) == diff, f"Training set should have {diff} images."
-
-        # Test if labels are correctly generated 
-        assert training_labels.shape[1] == diff
-        assert validation_labels.shape[1] == n_validation
 

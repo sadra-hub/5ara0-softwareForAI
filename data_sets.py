@@ -1,9 +1,10 @@
 import os
 import random
 from matplotlib import font_manager
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
-from tensorflow.keras.utils import to_categorical
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))  # Current file marks the root directory
 TRAINING_IMAGE_DIR = os.path.join(ROOT_DIR, "data_sets", "training_images")  # Directory for storing training images
@@ -77,35 +78,36 @@ def load_data_set(data_dir, n_validation = 0):
     # to normalize raw images (you can load an image with Image.open()) to be processed by your
     # image classifier. You can extract the original label from the image filename.
 
-    total_images = len(png_files)
-    n_training = total_images - n_validation # number of training images
-    
-    # Initialize training and validation sets, aswell as training and validation labels
-    training_images = np.empty([n_training, IMAGE_SIZE, IMAGE_SIZE])
-    training_labels = []
-    validation_images = np.empty([n_validation, IMAGE_SIZE, IMAGE_SIZE])
-    validation_labels = []
+    # Initialize images and labels
+    images = []
+    labels = []
 
-    # Load images and labels into arrays
-    for i, file_name in enumerate(png_files):
-        image = Image.open(os.path.join(data_dir, file_name))
-        normalized_image = normalize_image(image)
+    # Process each image: normalize and extract label
+    for file_name in png_files:
+        image_path = os.path.join(data_dir, file_name)
+        image = Image.open(image_path)
+        normalized_image = normalize_image(image) 
 
-        label = file_name[0] # Label is in the filename
+        label = file_name[0]  # Extract label from file name
+        images.append(normalized_image)
+        labels.append(label)
 
-        if i < n_validation:
-            validation_images[i] = normalized_image
-            validation_labels.append(DICT_LABELS[label]) 
-        else:
-            training_images[i - n_validation] = normalized_image
-            training_labels.append(DICT_LABELS[label])  
+     # Encode the labels to numerical format
+    le = LabelEncoder()
+    labels = le.fit_transform(labels)
 
-    # Convert labels to one-hot encoding
-    training_labels = np.array(training_labels)
-    validation_labels = np.array(validation_labels)
-
-    training_labels = to_categorical(training_labels, NUM_CLASSES)
-    validation_labels = to_categorical(validation_labels, NUM_CLASSES)
+    # Split data into training and validation sets
+    if n_validation == 0:
+        # If no validation set is needed
+        training_images = np.array(images)
+        training_labels = np.array(labels)
+        validation_images = None
+        validation_labels = None
+    else:
+        # Split the data into training and validation sets
+        training_images, validation_images, training_labels, validation_labels = train_test_split(
+            images, labels, test_size=n_validation
+        )
 
     return training_images, training_labels, validation_images, validation_labels
 
