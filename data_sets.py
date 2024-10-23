@@ -1,14 +1,20 @@
 import os
 import random
 from matplotlib import font_manager
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 from PIL import Image, ImageDraw, ImageFont
+import numpy as np
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))  # Current file marks the root directory
 TRAINING_IMAGE_DIR = os.path.join(ROOT_DIR, "data_sets", "training_images")  # Directory for storing training images
 TEST_IMAGE_DIR = os.path.join(ROOT_DIR, "data_sets", "test_images")  # Directory for storing test images
 LABELS = ['J', 'Q', 'K']  # Possible card labels
+DICT_LABELS = {'J': 0, 'Q': 1, 'K': 2}
+NUM_CLASSES = len(DICT_LABELS)
 IMAGE_SIZE = 32 
 ROTATE_MAX_ANGLE = 15
+NOISE = np.arange(0,1,0.1)  # Noise levels to generate images with for dataset
 
 FONTS = [
     font_manager.findfont(font_manager.FontProperties(family = 'sans-serif', style = 'normal', weight = 'normal')),
@@ -35,7 +41,14 @@ def normalize_image(raw_image: Image):
         Normalized image that can be used by the image classifier.
     """
 
-    image = []
+     # Convert the raw PIL image to a NumPy array
+    image = np.array(raw_image)
+
+    # Initially divided by the max pixel value but this could lead to inconsistent results if image is not (0, 255)
+    # So divide by 255
+
+    # Normalize the pixel values to be in the range [0, 1]
+    image = np.divide(image, 255).astype('float32')
 
     return image
 
@@ -64,10 +77,37 @@ def load_data_set(data_dir, n_validation = 0):
     # Load the training and validation set and prepare the images and labels. Use normalize_image()
     # to normalize raw images (you can load an image with Image.open()) to be processed by your
     # image classifier. You can extract the original label from the image filename.
-    training_images = []
-    training_labels = []
-    validation_images = []
-    validation_labels = []
+
+    # Initialize images and labels
+    images = []
+    labels = []
+
+    # Process each image: normalize and extract label
+    for file_name in png_files:
+        image_path = os.path.join(data_dir, file_name)
+        image = Image.open(image_path)
+        normalized_image = normalize_image(image) 
+
+        label = file_name[0]  # Extract label from file name
+        images.append(normalized_image)
+        labels.append(label)
+
+     # Encode the labels to numerical format
+    le = LabelEncoder()
+    labels = le.fit_transform(labels)
+
+    # Split data into training and validation sets
+    if n_validation == 0:
+        # If no validation set is needed
+        training_images = np.array(images)
+        training_labels = np.array(labels)
+        validation_images = None
+        validation_labels = None
+    else:
+        # Split the data into training and validation sets
+        training_images, validation_images, training_labels, validation_labels = train_test_split(
+            images, labels, test_size=n_validation
+        )
 
     return training_images, training_labels, validation_images, validation_labels
 
@@ -87,12 +127,14 @@ def generate_data_set(n_samples, data_dir):
     if not os.path.exists(data_dir):
         os.makedirs(data_dir)  # Generate a directory for data set storage, if not already present
 
-    for i in range(n_samples):
-        # Pick a random rank and convert it to a noisy image through generate_noisy_image().
-        rank = None
-        img = None
 
-        img.save(f"./{data_dir}/{rank}_{i}.png")  # The filename encodes the original label for training/testing
+    for i in range(n_samples):
+        # pick a random rank and convert it to a noisy image through generate_noisy_image()
+        rank = random.choice(LABELS) # randomly select J,Q,K
+        noise_level  = random.choice(NOISE) # randomly select a noise level
+        img = generate_noisy_image(rank, noise_level) # Assign a random noise level, noise level is a float between 0 and 1
+        img.save(f"{data_dir}/{rank}_{i}_{noise_level:.2f}.png") # Save the image with the filename encoded for testing and training
+        
 
 
 def generate_noisy_image(rank, noise_level):

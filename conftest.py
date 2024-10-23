@@ -4,7 +4,7 @@ from PIL import Image
 
 from client.state import ClientGameState
 
-TEST_DIR = os.path.join(os.path.abspath(__file__), "test")  # Mark the test root directory
+TEST_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test")  # Mark the test root directory
 TRAINING_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "training_images")
 TEST_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "test_images")
 
