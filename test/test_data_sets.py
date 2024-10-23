@@ -13,6 +13,21 @@ TEST_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "test_images")
 class TestDataSets:
     # You don't need to test generate_data_set() (that will take too much time to run)
 
+    def test_normalize_image(self, image):
+        """
+        Test whether the behaviour of normalize_image() returns a properly normalized image.
+        """
+        # Call the function to normalize the provided test image
+        normalized_img = normalize_image(image)
+
+        # Ensure the image shape and data type are correct after normalization
+        assert normalized_img.dtype == np.float32, "Expected data type float32 for the image"
+        assert normalized_img.shape == (IMAGE_SIZE, IMAGE_SIZE), "Image shape mismatch"
+
+        # Check if the normalized image values are constrained between 0 and 1
+        assert normalized_img.max() <= 1, "Maximum value exceeds 1"
+        assert normalized_img.min() >= 0, "Minimum value is below 0"
+
     def test_generate_noisy_image(self):
 
         """

@@ -2,6 +2,7 @@ import os
 import random
 from matplotlib import font_manager
 from PIL import Image, ImageDraw, ImageFont
+import numpy as np
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))  # Current file marks the root directory
 TRAINING_IMAGE_DIR = os.path.join(ROOT_DIR, "data_sets", "training_images")  # Directory for storing training images
@@ -35,7 +36,14 @@ def normalize_image(raw_image: Image):
         Normalized image that can be used by the image classifier.
     """
 
-    image = []
+     # Convert the raw PIL image to a NumPy array
+    image = np.array(raw_image)
+
+    # Find the maximum pixel value for normalization
+    max_image_value = image.max()
+
+    # Normalize the pixel values to be in the range [0, 1]
+    image = np.divide(image, max_image_value).astype('float32')
 
     return image
 
