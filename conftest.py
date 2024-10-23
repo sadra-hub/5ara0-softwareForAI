@@ -1,6 +1,7 @@
 import os
 import pytest
 from PIL import Image
+from agent import PokerAgent
 
 from client.state import ClientGameState
 
