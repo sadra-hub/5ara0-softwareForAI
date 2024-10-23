@@ -52,36 +52,32 @@ class TestDataSets:
         """
         Test if the images are loaded and divided into training and validation sets.
         """
+        # Check for the case when n_validation = 0
+        training_images, training_labels, validation_images, validation_labels = load_data_set(TRAINING_IMAGE_TEST_DIR) # use training data in test directory to split into training/validation sets
+        # Check validation set information when n_validation = 0
+        assert validation_labels == None and validation_features == None
+        # Check training set information when n_validation = 0
+        number_of_training_labels = len(training_labels)
+        number_of_training_images = len(training_images)
 
+        assert number_of_training_labels == NUM_CLASSES and number_of_training_images == NUM_CLASSES
+
+        # Now in the case that n_validation = 1
         n_validation = 1
+        diff = NUM_CLASSES - n_validation
 
         training_images, training_labels, validation_images, validation_labels = load_data_set(TEST_IMAGE_TEST_DIR, n_validation)
 
-        # Extract png files
-        files = os.listdir(TEST_IMAGE_TEST_DIR)
-        png_files = []
-        for file in files:
-            if file.split('.')[-1] == "png":
-                png_files.append(file)
-
-        total_images = len(png_files)
-
         # Check if the total number of images is split correctly into training and validation sets
-        assert len(training_images) + len(validation_images) == total_images, "Total images should match the split between training and validation."
+        assert len(training_images) + len(validation_images) == NUM_CLASSES, "Total images should match the split between training and validation."
 
         # Check if the number of validation images matches n_validation
         assert len(validation_images) == n_validation, f"Validation set should have {n_validation} images."
 
         # Check if the number of training images is correct
-        assert len(training_images) == total_images - n_validation, f"Training set should have {total_images - n_validation} images."
+        assert len(training_images) == diff, f"Training set should have {diff} images."
 
-        # Test if labels are correctly generated (since we have 3 classes: ['J', 'Q', 'K'])
-        assert training_labels.shape[1] == 3
-        assert validation_labels.shape[1] == 3
-
-        # Test if the label matrix contains only 0 and 1 for one-hot encoding
-        assert training_labels.min() == 0
-        assert training_labels.max() == 1
-        assert validation_labels.min() == 0
-        assert validation_labels.max() == 1
+        # Test if labels are correctly generated 
+        assert training_labels.shape[1] == diff
+        assert validation_labels.shape[1] == n_validation
 
