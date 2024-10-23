@@ -44,11 +44,11 @@ def normalize_image(raw_image: Image):
      # Convert the raw PIL image to a NumPy array
     image = np.array(raw_image)
 
-    # Find the maximum pixel value for normalization
-    max_image_value = image.max()
+    # Initially divided by the max pixel value but this could lead to inconsistent results if image is not (0, 255)
+    # So divide by 255
 
     # Normalize the pixel values to be in the range [0, 1]
-    image = np.divide(image, max_image_value).astype('float32')
+    image = np.divide(image, 255).astype('float32')
 
     return image
 
