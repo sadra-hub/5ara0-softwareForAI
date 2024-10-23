@@ -20,7 +20,9 @@ class TestModel:
 
         # Check the first layer is Conv2D with the right input shape
         assert isinstance(model.layers[0], keras.layers.Conv2D)
-        assert model.layers[0].input_shape == (None, 32, 32, 1)
+        
+        # Check the input shape of the model
+        assert model.input_shape == (None, 32, 32, 1)
 
         # Check if the model is compiled with the correct loss function
         assert model.loss == "sparse_categorical_crossentropy"
