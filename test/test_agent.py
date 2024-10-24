@@ -52,21 +52,28 @@ class TestPokerAgent:
         assert action in ['BET', 'CHECK']
     
     def test_on_image(self, image, agent):
-        # Call the on_image method with the test image
+        """
+        Test whether the agent correctly identifies the rank of a card.
+        """
         rank = agent.on_image(image)
     
         # Assert that the returned rank is 'J' for the image "J_1.png"
         assert rank == 'J'
 
     def test_on_game_start(self, agent):
-        # Simulate the start of a new game
+        """
+        Test whether the agent correctly handles the game start
+        """
         try:
             agent.on_game_start()  # Call should not raise any exceptions
         except Exception as e:
             pytest.fail(f"on_game_start raised an exception: {e}")
 
     def test_on_new_round_request(agent, client_game_state):
-        # Simulate a new round request
+    
+        """
+        test whether the agent correctly handles the new round request
+        """
         try:
             agent.on_new_round_request(client_game_state)  # Call should not raise any exceptions
         except Exception as e:
@@ -76,7 +83,9 @@ class TestPokerAgent:
         assert not client_game_state.get_player_bank() < 0  
 
     def test_on_game_end(agent, client_game_state):
-        # Simulate the end of a game
+        """
+        test whether the agent correctly handles the end of a game
+        """
         try:
             agent.on_game_end(client_game_state, 'WIN')  
         except Exception as e:
