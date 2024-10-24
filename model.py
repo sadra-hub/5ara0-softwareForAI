@@ -56,6 +56,12 @@ def train_model(model, n_validation, write_to_file=False):
     training_labels = np.array(training_labels)
     validation_images = np.array(validation_images)
     validation_labels = np.array(validation_labels)
+
+    # Reshape images to match model's expected input shape
+    # Assuming images are grayscale 32x32
+    training_images = training_images.reshape(-1, 32, 32, 1)
+    validation_images = validation_images.reshape(-1, 32, 32, 1)
+
     # Fit the model
     model.fit(
         training_images, 
