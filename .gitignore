@@ -12,3 +12,5 @@ variables/
 *.html
 .python-version
 token_key.txt
+models/
+data_sets/
