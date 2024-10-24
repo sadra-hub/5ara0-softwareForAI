@@ -51,6 +51,11 @@ def train_model(model, n_validation, write_to_file=False):
     training_images, training_labels, validation_images, validation_labels = \
             load_data_set(TRAINING_IMAGE_DIR, n_validation)
             
+    # Convert lists to NumPy arrays if necessary
+    training_images = np.array(training_images)
+    training_labels = np.array(training_labels)
+    validation_images = np.array(validation_images)
+    validation_labels = np.array(validation_labels)
     # Fit the model
     model.fit(
         training_images, 
