@@ -50,3 +50,10 @@ class TestPokerAgent:
         # Call the agent's make_action method again after the history change.
         action = agent.make_action(gamestate, gameroundstate)
         assert action in ['BET', 'CHECK']
+    
+    def test_on_image(self, image, agent):
+        # Call the on_image method with the test image
+        rank = agent.on_image(image)
+    
+        # Assert that the returned rank is 'J' for the image "J_1.png"
+        assert rank == 'J'
