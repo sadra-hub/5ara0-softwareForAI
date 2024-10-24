@@ -39,7 +39,10 @@ class PokerAgent(object):
         image : Image
             Image object
         """
-        pass
+        return identify(image, self.model)
+     
+
+        
 
     def on_error(self, error):
         """
