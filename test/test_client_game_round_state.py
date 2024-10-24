@@ -2,13 +2,6 @@ import pytest
 from PIL import Image  
 from client.state import ClientGameRoundState
 
-
-@pytest.fixture
-def game_round():
-    """Fixture to set up a basic game round state for testing."""
-    return ClientGameRoundState(coordinator_id="coordinator_1", round_id=1)
-
-
 class TestClientGameRoundState:
     def test_initial_state(self, game_round):
         """Test the initial state of a new game round."""

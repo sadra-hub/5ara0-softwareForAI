@@ -3,6 +3,7 @@ from unittest.mock import MagicMock, patch, Mock
 from agent import PokerAgent
 from client.state import ClientGameState, ClientGameRoundState
 
+
 class TestPokerAgent:
     @patch('agent.load_model')
     def test_agent_init(self, mock_load_model):
@@ -49,15 +50,3 @@ class TestPokerAgent:
         # Call the agent's make_action method again after the history change.
         action = agent.make_action(gamestate, gameroundstate)
         assert action in ['BET', 'CHECK']
-
-
-        
-
-
-
-
-
-
-
-    
-          # Replace with your own tests
