@@ -16,3 +16,24 @@
 
 ## Introduction
 The Kuhn Poker Bot is an AI-powered tool designed to play Kuhn poker. It utilizes an image recognition model to detect the cards dealt to the player and implements sophisticated betting strategies based on the number of cards in play (three and four card betting strategies).
+
+## Getting Started
+
+### Prerequisites
+Before running the Kuhn Poker Bot, ensure you have the following software installed:
+- Python 3.9
+- TensorFlow
+- DCV
+- For a a list of dependencies: [Mac](environment_mac.yml), [Windows](environment.yml), [Linux](environment_linux.yml)
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/tue-5ARA0-2024-Q1/pokerbot-pokerbot-29.git
+   cd kuhn-poker-bot
+   ```
+
+2. Creata a new Conda environment and Install the required dependencies (choose environment file based on your OS):
+    ```bash
+    conda env create -f environment.yml
+    ```
