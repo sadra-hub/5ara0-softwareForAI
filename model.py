@@ -62,6 +62,11 @@ def train_model(model, n_validation, write_to_file=False):
     training_images = training_images.reshape(-1, 32, 32, 1)
     validation_images = validation_images.reshape(-1, 32, 32, 1)
 
+    # Normalize pixel values to [0,1]
+    training_images = normalize_image(training_images)
+    validation_images = normalize_image(validation_images)
+
+
     # Fit the model
     model.fit(
         training_images, 
