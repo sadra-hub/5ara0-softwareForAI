@@ -40,9 +40,6 @@ class PokerAgent(object):
             Image object
         """
         return identify(image, self.model)
-     
-
-        
 
     def on_error(self, error):
         """
@@ -60,7 +57,7 @@ class PokerAgent(object):
         """
         This method will be called once at the beginning of the game when the server has confirmed that both players are connected.
         """
-        pass
+        print('Game has started.')
 
     def on_new_round_request(self, state: ClientGameState):
         """
@@ -72,7 +69,7 @@ class PokerAgent(object):
         state : ClientGameState
             State object of the current game
         """
-        pass
+        print("New round has been started. Currently in the bank: ", state.get_player_bank())
 
     def on_round_end(self, state: ClientGameState, round: ClientGameRoundState):
         """
