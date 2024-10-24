@@ -1,8 +1,8 @@
 import os
 import random
 from matplotlib import font_manager
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split # type: ignore
+from sklearn.preprocessing import LabelEncoder # type: ignore
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 
