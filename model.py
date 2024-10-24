@@ -79,7 +79,7 @@ def train_model(model, n_validation, write_to_file=False):
     )
 
     if write_to_file:
-        model.save('card_model.h5')  # Save the model to a file
+        model.save('card_model.keras')  # Save the model to a file
 
     return model
 
@@ -92,7 +92,7 @@ def load_model():
     model : keras Model
         Previously trained model.
     """
-    model_path = "card_model.h5"
+    model_path = "card_model.keras"
 
     # Check if the file exists, raise a FileNotFoundError if it doesn't
     if not os.path.exists(model_path):
