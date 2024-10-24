@@ -57,3 +57,34 @@ class TestPokerAgent:
     
         # Assert that the returned rank is 'J' for the image "J_1.png"
         assert rank == 'J'
+
+    def test_on_game_start(self, agent):
+        # Simulate the start of a new game
+        try:
+            agent.on_game_start()  # Call should not raise any exceptions
+        except Exception as e:
+            pytest.fail(f"on_game_start raised an exception: {e}")
+
+    def test_on_new_round_request(agent, client_game_state):
+        # Simulate a new round request
+        try:
+            agent.on_new_round_request(client_game_state)  # Call should not raise any exceptions
+        except Exception as e:
+            pytest.fail(f"on_new_round_request raised an exception: {e}")
+
+        # Player bank is positive before start of new round
+        assert not client_game_state.get_player_bank() < 0  
+
+    def test_on_game_end(agent, client_game_state):
+        # Simulate the end of a game
+        try:
+            agent.on_game_end(client_game_state, 'WIN')  
+        except Exception as e:
+            pytest.fail(f"on_game_end raised an exception: {e}")
+
+    def test_on_round_end(agent, client_game_state, game_round):
+        # Simulate the end of a round
+        try:
+            agent.on_round_end(client_game_state, game_round)  
+        except Exception as e:
+            pytest.fail(f"on_round_end raised an exception: {e}")
