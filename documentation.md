@@ -13,3 +13,6 @@
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
+
+## Introduction
+The Kuhn Poker Bot is an AI-powered tool designed to play Kuhn poker. It utilizes an image recognition model to detect the cards dealt to the player and implements sophisticated betting strategies based on the number of cards in play (three and four card betting strategies).
