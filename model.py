@@ -66,6 +66,9 @@ def train_model(model, n_validation, write_to_file=False):
     training_images = normalize_image(training_images)
     validation_images = normalize_image(validation_images)
 
+    # Verify shapes
+    assert training_images.shape[1:] == (32, 32, 1), "Images must be 32x32 with 1 channel"
+    assert training_images.shape[0] == training_labels.shape[0], "Number of samples must match labels"
 
     # Fit the model
     model.fit(
