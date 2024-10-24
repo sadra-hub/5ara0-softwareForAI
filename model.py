@@ -2,7 +2,6 @@ import os
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
-from keras.models import load_model as keras_load_model # type: ignore
 from data_sets import normalize_image, load_data_set, TRAINING_IMAGE_DIR, TEST_IMAGE_DIR
 
 layers = tf.keras.layers
