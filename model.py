@@ -47,11 +47,17 @@ def train_model(model, n_validation, write_to_file=False):
     model : keras Model
         The trained model.
     """
-
+    
     training_images, training_labels, validation_images, validation_labels = \
-        load_data_set(TRAINING_IMAGE_DIR, n_validation)
-        
-    model.fit(training_images, training_labels, validation_data=(validation_images, validation_labels), epochs=10)
+            load_data_set(TRAINING_IMAGE_DIR, n_validation)
+            
+    # Fit the model
+    model.fit(
+        training_images, 
+        training_labels,
+        validation_data=(validation_images, validation_labels),
+        epochs=10
+    )
 
     if write_to_file:
         model.save('card_model.h5')  # Save the model to a file
