@@ -79,3 +79,7 @@ We welcome contributions from the community! If you would like to contribute, pl
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+
+## Acknowledgments
++ Thanks to the instructors for their valuable feedback and improvements to this project.
++ Special thanks to the developers of the libraries used in this project: TensorFlow, Pytest, and others.
