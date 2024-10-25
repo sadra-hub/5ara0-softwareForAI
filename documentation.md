@@ -1,4 +1,4 @@
-![intro](/assets/intro.png)
+![intro](assets/intro.png)
 ## Table of Contents
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
