@@ -77,3 +77,5 @@ We welcome contributions from the community! If you would like to contribute, pl
 4. Push to the branch (git push origin feature/YourFeature).
 5. Open a Pull Request and assign either of us for a review.
 
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
