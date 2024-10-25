@@ -1,6 +1,7 @@
 import random
 from model import load_model, identify
 from client.state import ClientGameRoundState, ClientGameState
+from strategy import initial_player, responding_player
 
 
 class PokerAgent(object):
@@ -26,11 +27,12 @@ class PokerAgent(object):
             A string representation of the next action an agent wants to do next, should be from a list of available actions
         """
 
-        available_actions = round.get_available_actions()
+        if round.get_turn_order() == 1:
+            return initial_player(round)
+        else:
+            return responding_player(round)
 
-        return random.choice(available_actions)  # Replace this random strategy with your own implementation
-
-    def on_image(self, image):
+    def on_image(self, image, round: ClientGameRoundState):
         """
         This method is called every time when the card image changes. Use this method for image recongition.
 
@@ -39,7 +41,9 @@ class PokerAgent(object):
         image : Image
             Image object
         """
-        return identify(image, self.model)
+
+        rank = identify(image, self.model)
+        return round.set_card(rank)
 
     def on_error(self, error):
         """
