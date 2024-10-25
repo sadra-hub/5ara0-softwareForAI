@@ -55,9 +55,30 @@ Each image is saved in the appropriate `training_images` or `test_images` direct
 
 
 ### Image Recognition Model
-<!-- Sadra is responsible for this part -->
 The bot employs an image recognition model built using TensorFlow to analyze the visual representation of the poker cards. The model processes images captured from the poker table to accurately identify which cards have been dealt.
 ![model](assets/model.png)
+
+CNN was chosen as the model for this task due to its ability to process and learn effectively from image data. CNNs automatically extract relevant features from raw pixel values through convolutional layers, building spatial hierarchies from simple edges to complex textures, making them ideal for image classification. 
+
+For this model, 7 layers are used, balancing sufficient complexity for feature extraction without excessive risk of overfitting. The model is defined with seven layers: two convolutional and pooling layers, a flatten layer, a dense hidden layer, and an output layer with softmax activation.
+
+The primary evaluation metric is the loss value, calculated using `sparse categorical crossentropy`. This metric is especially suitable for multi-class classification as it evaluates the probabilities assigned to each class, helping the model distinguish between classes effectively, even with noisy data.
+
+
+The model is trained using the generated test dataset. `train_model()` normalizes the images, verifies shape compatibility, trains the model for 10 epochs, and saves the model if write_to_file is set to True. The saved model is accessed through the `load_model()` function.
+The model can be built and trained through the following commands
+
+```bash
+    model = build_model()  # Build a new model
+    history = train_model(model, n_validation=200, write_to_file=False)
+```
+
+The performance of the model is then evaluated on the test dataset with loss and accuracy as chosen metrics. The function `evaluate_model()` returns a loss value calculated using the loss function that reflects how well the model generalizes to the unseen and noisy test data.
+
+The classification of a raw_image is done using the `identify()` function. The raw image is normalised and reshaped for the model's input. An extra dimension is added to the image array as required by the model and a prediction is made using the preprocessed input image. The class corresponding the index `0 for ‘J’, 1 for ‘Q’, and 2 for ‘K’` with the highest probability in the prediction array is returned
+
+The training histories are stored and used to visualise a training history. The graph plots a learning curve for accuracy and loss of the model over the trained epochs.
+
 
 #### DVC: Dataset and Model Version Control
 We're using DVC and a bucket running on Amazon Web Service (AWS) as storage at the following address: 
