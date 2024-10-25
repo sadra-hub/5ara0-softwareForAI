@@ -116,7 +116,11 @@ def evaluate_model(model, test_image_dir):
         A measure of model performance.
     """
 
-    test_images, test_labels, _, _ = load_data_set(TEST_IMAGE_DIR)
+    test_images, test_labels, _, _ = load_data_set(test_image_dir)
+
+    # Reshape to include the channel dimension
+    if len(test_images.shape) == 3:  # If shape is (num_images, 32, 32)
+        test_images = test_images.reshape(-1, 32, 32, 1)  # Reshape to (num_images, 32, 32, 1)
     score = model.evaluate(test_images, test_labels)
     return score[0]  # Return the loss value
 
