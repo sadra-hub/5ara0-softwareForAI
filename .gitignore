@@ -9,6 +9,9 @@ db.sqlite3
 variables/
 *.pkl
 *.h5
+*.keras
 *.html
 .python-version
 token_key.txt
+models/
+data_sets/

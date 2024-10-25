@@ -2,7 +2,6 @@ import os
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
-from keras.models import load_model as keras_load_model # type: ignore
 from data_sets import normalize_image, load_data_set, TRAINING_IMAGE_DIR, TEST_IMAGE_DIR
 
 layers = tf.keras.layers
@@ -48,14 +47,39 @@ def train_model(model, n_validation, write_to_file=False):
     model : keras Model
         The trained model.
     """
-
+    
     training_images, training_labels, validation_images, validation_labels = \
-        load_data_set(TRAINING_IMAGE_DIR, n_validation)
-        
-    model.fit(training_images, training_labels, validation_data=(validation_images, validation_labels), epochs=10)
+            load_data_set(TRAINING_IMAGE_DIR, n_validation)
+            
+    # Convert lists to NumPy arrays if necessary
+    training_images = np.array(training_images)
+    training_labels = np.array(training_labels)
+    validation_images = np.array(validation_images)
+    validation_labels = np.array(validation_labels)
+
+    # Reshape images to match model's expected input shape
+    # Assuming images are grayscale 32x32
+    training_images = training_images.reshape(-1, 32, 32, 1)
+    validation_images = validation_images.reshape(-1, 32, 32, 1)
+
+    # Normalize pixel values to [0,1]
+    training_images = normalize_image(training_images)
+    validation_images = normalize_image(validation_images)
+
+    # Verify shapes
+    assert training_images.shape[1:] == (32, 32, 1), "Images must be 32x32 with 1 channel"
+    assert training_images.shape[0] == training_labels.shape[0], "Number of samples must match labels"
+
+    # Fit the model
+    model.fit(
+        training_images, 
+        training_labels,
+        validation_data=(validation_images, validation_labels),
+        epochs=10
+    )
 
     if write_to_file:
-        model.save('card_model.h5')  # Save the model to a file
+        model.save('card_model.keras')  # Save the model to a file
 
     return model
 
@@ -68,7 +92,7 @@ def load_model():
     model : keras Model
         Previously trained model.
     """
-    model_path = "card_model.h5"
+    model_path = "card_model.keras"
 
     # Check if the file exists, raise a FileNotFoundError if it doesn't
     if not os.path.exists(model_path):
