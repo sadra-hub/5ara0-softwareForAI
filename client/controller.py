@@ -107,7 +107,7 @@ class Controller(object):
                             image_size = int(sqrt(len(card_image)))
                             image = Image.frombytes('L', (image_size, image_size), card_image)
                             state.get_last_round_state().set_card_image(image)
-                            agent.on_image(image)
+                            agent.on_image(image, state.get_last_round_state())
 
                     if response.event == game_pb2.PlayGameResponse.PlayGameResponseEvent.Close:
                         break

@@ -1,6 +1,7 @@
 import random
 from model import load_model, identify
 from client.state import ClientGameRoundState, ClientGameState
+from strategy import initial_player, responding_player
 
 
 class PokerAgent(object):
@@ -26,11 +27,12 @@ class PokerAgent(object):
             A string representation of the next action an agent wants to do next, should be from a list of available actions
         """
 
-        available_actions = round.get_available_actions()
+        if round.get_turn_order() == 1:
+            return initial_player(round)
+        else:
+            return responding_player(round)
 
-        return random.choice(available_actions)  # Replace this random strategy with your own implementation
-
-    def on_image(self, image):
+    def on_image(self, image, round: ClientGameRoundState):
         """
         This method is called every time when the card image changes. Use this method for image recongition.
 
@@ -39,7 +41,9 @@ class PokerAgent(object):
         image : Image
             Image object
         """
-        pass
+
+        rank = identify(image, self.model)
+        return round.set_card(rank)
 
     def on_error(self, error):
         """
@@ -57,7 +61,7 @@ class PokerAgent(object):
         """
         This method will be called once at the beginning of the game when the server has confirmed that both players are connected.
         """
-        pass
+        print('Game has started.')
 
     def on_new_round_request(self, state: ClientGameState):
         """
@@ -69,7 +73,7 @@ class PokerAgent(object):
         state : ClientGameState
             State object of the current game
         """
-        pass
+        print("New round has been started. Currently in the bank: ", state.get_player_bank())
 
     def on_round_end(self, state: ClientGameState, round: ClientGameRoundState):
         """

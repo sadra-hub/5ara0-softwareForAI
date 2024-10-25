@@ -132,6 +132,8 @@ class ClientGameState(object):
         return list(filter(lambda r: len(r.get_moves_history()) != 0, self._rounds))
 
     def get_last_round_state(self) -> ClientGameRoundState:
+        if not self._rounds:  # Check if _rounds is empty
+            raise IndexError("No rounds available")  # Raise IndexError if empty
         return self._rounds[-1]
 
     def update_bank(self, outcome):

@@ -3,6 +3,7 @@ import pytest
 from PIL import Image
 
 from client.state import ClientGameRoundState, ClientGameState
+from agent import PokerAgent
 
 TEST_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test")  # Mark the test root directory
 TRAINING_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "training_images")
@@ -38,4 +39,9 @@ def mock_load_data_set(mocker):
 def game_round():
     """Fixture to set up a basic game round state for testing."""
     return ClientGameRoundState(coordinator_id="coordinator_1", round_id=1)
+
+@pytest.fixture()
+def agent():
+    return PokerAgent() # Initializes PokerAgent
+
 
