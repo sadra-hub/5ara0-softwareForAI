@@ -75,7 +75,7 @@ def train_model(model, training_image_dir, n_validation, write_to_file=False):
         training_images,
         training_labels,
         validation_data=(validation_images, validation_labels),
-        epochs=10,
+        epochs=50,
     )
 
     if write_to_file:
