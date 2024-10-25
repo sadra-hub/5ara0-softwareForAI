@@ -49,6 +49,23 @@ In this section we go through architecture and design choices we made througout 
 <!-- Sadra is responsible for this part -->
 The bot employs an image recognition model built using TensorFlow to analyze the visual representation of the poker cards. The model processes images captured from the poker table to accurately identify which cards have been dealt.
 
+#### DVC: Dataset and Model Version Control
+We're using DVC and a bucket running on Amazon Web Service (AWS) as storage at the following address: 
+`https://pokerbot-29-dvc.s3.eu-north-1.amazonaws.com`
+
+To access the models stored while training, you have the run the following commands: 
+```bash
+conda install -c conda-forge awscli
+conda install -c conda-forge dvc
+aws configure
+	-> key id : <ask-for-a-key-ID>
+	-> secret key: <ask-for-a-secret-key>
+	-> region: eu-north-1
+	-> format: json
+dvc remote add -d s3remote s3://pokerbot-29-dvc
+dvc remote modify s3remote endpointurl https://s3.eu-north-1.amazonaws.com
+```
+
 ### Betting Strategy
 <!-- Farah can add his contributions here -->
 
