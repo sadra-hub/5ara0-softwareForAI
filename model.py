@@ -101,7 +101,7 @@ def load_model():
     # Load the model
     return keras.models.load_model(model_path)
 
-def evaluate_model(model):
+def evaluate_model(model, test_image_dir):
     """
     Evaluate model on the test set.
 
