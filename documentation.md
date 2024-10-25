@@ -51,3 +51,19 @@ The bot employs an image recognition model built using TensorFlow to analyze the
 
 ### Betting Strategy
 <!-- Farah can add his contributions here -->
+
+## Usage
+
+### Running the Bot
+ we won't go into details of how to run this spot as the details have already been discussed [here](README.md). Please follow the instructions. To put it briefly, You can play an online game with our client against a bot by running the following command:
+
+```bash
+python main.py --token <token UUID here> --play "bot" --global
+```
+
+### Understanding Strategies
+You can define a `--cards` argument to play a 4-card Kuhn Poker. In case not specified the bot will default to play a 3-card game. Please refer to [Betting Strategy](#betting-strategy) to better understand how each betting strategy work.
+
+```bash
+python main.py --token <token UUID here> --play "bot" --cards "4" --global
+```
