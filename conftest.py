@@ -1,7 +1,6 @@
 import os
 import pytest
 from PIL import Image
-from agent import PokerAgent
 
 from client.state import ClientGameState, ClientGameRoundState
 
@@ -23,11 +22,6 @@ def client_game_state():
     return ClientGameState("coordinator_1", "player_1", 100)
 
 @pytest.fixture
-def game_round(scope="module"):
-    """Fixture to set up a basic game round state for testing."""
-    return ClientGameRoundState(coordinator_id="coordinator_1", round_id=1)
-
-@pytest.fixture
 def mock_model(mocker):
     """Fixture to create a mock model."""
     model_1 = mocker.Mock()
@@ -38,8 +32,9 @@ def mock_load_data_set(mocker):
     """Fixture to mock load_data_set."""
     return mocker.patch('model.load_data_set')
 
-@pytest.fixture()
-def agent():
-    return PokerAgent() # Initializes PokerAgent
-
 # Define your own fixtures for testing here if you need them
+
+@pytest.fixture
+def game_round(scope="module"):
+    """Fixture to set up a basic game round state for testing."""
+    return ClientGameRoundState(coordinator_id="coordinator_1", round_id=1)
