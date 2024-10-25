@@ -25,7 +25,7 @@ Before running the Kuhn Poker Bot, ensure you have the following software instal
 - Python 3.9
 - TensorFlow
 - DCV
-- For a a list of dependencies: [Mac](environment_mac.yml), [Windows](environment.yml), [Linux](environment_linux.yml)
+- For a a list of dependencies: [Windows](environment.yml), [Linux](environment_linux.yml)
 
 ### Installation
 1. Clone the repository:
