@@ -5,6 +5,7 @@
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Architecture](#architecture)
+  - [Data Structure](#data-structure)
   - [Image Recognition Model](#image-recognition-model)
   - [Betting Strategy](#betting-strategy)
 - [Usage](#usage)
