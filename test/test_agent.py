@@ -51,8 +51,8 @@ class TestPokerAgent:
         action = agent.make_action(gamestate, gameroundstate)
         assert action in ['BET', 'CHECK']
 
-    def test_make_action_2(self, agent, client_game_state, game_round):
-        """Test various actions based on the player's role and card."""
+    def test_make_action_initial(self, agent, client_game_state, game_round):
+        """Test various actions based on the initial player's role and card."""
         # Scenario 1: Initial player, first turn with a card 'J'
         game_round.set_turn_order(1)
         game_round.set_moves_history([])  # No moves made yet
@@ -71,7 +71,8 @@ class TestPokerAgent:
         action = agent.make_action(client_game_state, game_round)
         assert action in ["CALL", "FOLD"], f"Expected CALL or FOLD, got {action}"
 
-    def test_make_action_3(self, agent, client_game_state, game_round):
+    def test_make_action_responding(self, agent, client_game_state, game_round):
+        """Test various actions based on the responding player's role and card."""
         # Scenario 4: Responding player, initial move with a card 'J'
         game_round.set_turn_order(2)  # Switch to responding player
         game_round.set_available_actions(["CHECK", "BET"]) 
