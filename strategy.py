@@ -32,7 +32,7 @@ def initial_player(round: ClientGameRoundState):
         return action
 
 def responding_player(round: ClientGameRoundState):
-     """
+    """
     Strategy for the responding player, depending on whether the initial player checked or bet.
     
     If the initial player checks, the responding player will decide whether to check or bet based on their card.

@@ -57,3 +57,7 @@ class TestClientGameState:
 
         assert len(client_game_state.get_rounds()) == 1  # Should only return the round with moves
         assert client_game_state.get_rounds()[0].get_round_id() == 2
+
+    def test_get_last_round_state_empty(self, client_game_state):
+        with pytest.raises(IndexError):
+            client_game_state.get_last_round_state()
