@@ -29,7 +29,7 @@ def build_model():
     
     return model
 
-def train_model(model, n_validation, write_to_file=False):
+def train_model(model, training_image_dir, n_validation, write_to_file=False):
     """
     Fit the model on the training data set.
 
@@ -49,7 +49,7 @@ def train_model(model, n_validation, write_to_file=False):
     """
     
     training_images, training_labels, validation_images, validation_labels = \
-            load_data_set(TRAINING_IMAGE_DIR, n_validation)
+            load_data_set(training_image_dir, n_validation)
             
     # Convert lists to NumPy arrays if necessary
     training_images = np.array(training_images)
