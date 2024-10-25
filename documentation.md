@@ -79,6 +79,14 @@ The classification of a raw_image is done using the `identify()` function. The r
 
 The training histories are stored and used to visualise a training history. The graph plots a learning curve for accuracy and loss of the model over the trained epochs.
 
+![model](assets/learning_curve.png)
+
+On the Accuracy graph generated on the left, the general trend seems to be gradual improvements to 1.0 starting at 0.96. The model's accuracy improvement suggests it is effectively learning patterns in the training data. Peaking near 1.0 after 30 epochs is an indicator of strong training convergence.
+
+On the Loss Graph generated on the right, the general trends is rapid decrease to almost 0 starting at 0.14 by the 50the epoch. This suggests that the model is minimizing errors effectively over the training set and is achieving a good performance.
+
+Overall, with high accuracy and low loss, the model is working efficintly on training data.
+
 
 #### DVC: Dataset and Model Version Control
 We're using DVC and a bucket running on Amazon Web Service (AWS) as storage at the following address: 
