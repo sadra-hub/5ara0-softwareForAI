@@ -67,3 +67,13 @@ You can define a `--cards` argument to play a 4-card Kuhn Poker. In case not spe
 ```bash
 python main.py --token <token UUID here> --play "bot" --cards "4" --global
 ```
+
+## Contributing
+We welcome contributions from the community! If you would like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. ake your changes and commit them (`git commit -m 'Add new feature'`).
+4. Push to the branch (git push origin feature/YourFeature).
+5. Open a Pull Request and assign either of us for a review.
+
