@@ -38,3 +38,16 @@ Before running the Kuhn Poker Bot, ensure you have the following software instal
     ```bash
     conda env create -f environment.yml
     ```
+
+## Architecture
+In this section we go through architecture and design choices we made througout the development process.
+
+### Data Structure
+<!-- Yunus is reponsible for documenting the data sets generation and will add his contrbutions later. -->
+
+### Image Recognition Model
+<!-- Sadra is responsible for this part -->
+The bot employs an image recognition model built using TensorFlow to analyze the visual representation of the poker cards. The model processes images captured from the poker table to accurately identify which cards have been dealt.
+
+### Betting Strategy
+<!-- Farah can add his contributions here -->
