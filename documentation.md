@@ -48,6 +48,7 @@ In this section we go through architecture and design choices we made througout 
 ### Image Recognition Model
 <!-- Sadra is responsible for this part -->
 The bot employs an image recognition model built using TensorFlow to analyze the visual representation of the poker cards. The model processes images captured from the poker table to accurately identify which cards have been dealt.
+![model](assets/model.png)
 
 #### DVC: Dataset and Model Version Control
 We're using DVC and a bucket running on Amazon Web Service (AWS) as storage at the following address: 
