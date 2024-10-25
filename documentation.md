@@ -10,7 +10,7 @@
   - [Betting Strategy](#betting-strategy)
 - [Usage](#usage)
   - [Running the Bot](#running-the-bot)
-  - [Understanding Strategies](#understanding-strategies)
+  - [Game Variations](#game-variations)
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
@@ -61,8 +61,8 @@ The bot employs an image recognition model built using TensorFlow to analyze the
 python main.py --token <token UUID here> --play "bot" --global
 ```
 
-### Understanding Strategies
-You can define a `--cards` argument to play a 4-card Kuhn Poker. In case not specified the bot will default to play a 3-card game. Please refer to [Betting Strategy](#betting-strategy) to better understand how each betting strategy work.
+### Game Variations
+You can define a `--cards` argument to play a 4-card Kuhn Poker, instead of a regular 3-card game. In case not specified, the bot will default to play a 3-card game. Please refer to [Betting Strategy](#betting-strategy) to better understand how each betting strategy work.
 
 ```bash
 python main.py --token <token UUID here> --play "bot" --cards "4" --global
