@@ -2,7 +2,7 @@ import os
 import pytest
 from PIL import Image
 
-from client.state import ClientGameState
+from client.state import ClientGameRoundState, ClientGameState
 
 TEST_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "test")  # Mark the test root directory
 TRAINING_IMAGE_TEST_DIR = os.path.join(TEST_DIR, "data_sets", "training_images")
@@ -33,3 +33,9 @@ def mock_load_data_set(mocker):
     return mocker.patch('model.load_data_set')
 
 # Define your own fixtures for testing here if you need them
+
+@pytest.fixture
+def game_round():
+    """Fixture to set up a basic game round state for testing."""
+    return ClientGameRoundState(coordinator_id="coordinator_1", round_id=1)
+
