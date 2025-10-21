@@ -1,0 +1,12 @@
+__pycache__/
+.vscode/
+.venv/
+
+# Exclude all files starting with 'token'
+token*
+
+# Exclude all pickle files (.pkl)
+*.pkl
+
+# Allow pickle files in the 'test' directory
+!test/*.pkl

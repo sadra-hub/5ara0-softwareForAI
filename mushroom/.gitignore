@@ -1,0 +1,12 @@
+.venv/
+.vscode
+models/
+pipelines/
+.ipynb_checkpoints/
+.pytest_cache
+__pycache__/
+*.html
+*.pkl
+!test/*.pkl
+.ruff_cache/*
+.DS_Store
